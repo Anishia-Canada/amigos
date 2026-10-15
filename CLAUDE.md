@@ -1,6 +1,6 @@
 # CLAUDE.md — Amigos app
 
-Read `PROJECT_SPEC.md` before any feature work. Log significant choices in `DECISIONS.md`. Build in the slice order listed in the spec.
+Read `docs/PROJECT_SPEC.md` before any feature work. Log significant choices in `docs/DECISIONS.md`. Build in the slice order listed in the spec.
 
 ## Stack
 - Expo (latest SDK) + React Native + **TypeScript**
@@ -21,17 +21,17 @@ Read `PROJECT_SPEC.md` before any feature work. Log significant choices in `DECI
 
 ## Project structure
 ```
-app/
+src/app/
   _layout.tsx            # root: auth gate, routes by role
   (auth)/                # welcome, sign-in, sign-up, profile setup
   (homeowner)/           # tabs: home (map), bookings
   (amigo)/               # tabs: offers, schedule, profile
-components/
-lib/supabase.ts          # single Supabase client
-lib/types.ts             # shared types mirroring the DB schema
-lib/bookings.ts          # booking reads/writes + status transitions
-lib/location.ts          # geocoding, permissions, coordinate blurring
-supabase/schema.sql      # extensions, tables, enums, RLS, RPC functions, seed data
+src/components/
+src/lib/supabase.ts          # single Supabase client
+src/lib/database.types.ts    # generated; never edit by hand — run: npx supabase gen types typescript --linked > src/lib/database.types.ts
+src/lib/bookings.ts          # booking reads/writes + status transitions
+src/lib/location.ts          # geocoding, permissions, coordinate blurring
+supabase/migrations/         # all schema changes; see Workflow
 ```
 
 ## Matching & booking rules (enforce in the database)
@@ -61,7 +61,7 @@ supabase/schema.sql      # extensions, tables, enums, RLS, RPC functions, seed d
 
 ## Workflow
 - One slice at a time. After each slice: explain how to test it in Expo Go (including with two test accounts: one homeowner, one Amigo), wait for confirmation, then suggest a git commit message.
-- Database changes go in `supabase/schema.sql`; tell me exactly what to paste into the Supabase SQL Editor.
+- All schema changes go in new migration files under `supabase/migrations/`; never edit an already-pushed migration; never run `npx supabase db push` without asking me.
 - Run `npx tsc --noEmit` before calling a slice done.
 
 ## Commands
