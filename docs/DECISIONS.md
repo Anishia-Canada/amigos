@@ -20,3 +20,7 @@
 | 16 | 2026-10-14 | Map reads Amigo locations only via a blurring `security definer` RPC; `amigo_details` not readable by homeowners | RLS limits rows, not columns | — |
 | 17 | 2026-10-14 | `street_name` stored on bookings for offers; full address stays in `booking_addresses` | Offers need street context without revealing the address | — |
 | 18 | 2026-10-14 | Keep Supabase active during closed test (regular use or free uptime ping) | Free projects pause after ~1 week idle | Moving to a paid plan |
+| 19 | 2026-10-14 | Email confirmation off during development | Free-tier email limits; confirmation links need deep links Expo Go handles poorly | Before inviting closed-test users |
+| 20 | 2026-10-14 | Schema changes only via Supabase CLI migration files (`npx supabase db push`) | Database design stays versioned in Git and can be rebuilt | — |
+| 21 | 2026-10-14 | Supabase region: Canada (Central) | Keeps Ontario users' data in Canada | — |
+
