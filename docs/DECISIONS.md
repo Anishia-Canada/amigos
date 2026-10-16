@@ -24,3 +24,8 @@
 | 20 | 2026-10-14 | Schema changes only via Supabase CLI migration files (`npx supabase db push`) | Database design stays versioned in Git and can be rebuilt | — |
 | 21 | 2026-10-14 | Supabase region: Canada (Central) | Keeps Ontario users' data in Canada | — |
 
+| 22 | 2026-10-15 | `booking_status` enum has no `expired` value | Makes "never write expired" impossible to violate; expiry stays computed | — |
+| 23 | 2026-10-15 | `profiles.role` immutable (trigger); `amigo_details.is_verified` client-proof (trigger + column grants); booking rate and job location copied server-side on insert | Enforce trust rules in the DB, not the app | Phase 2 admin dashboard |
+| 24 | 2026-10-15 | Auth gate uses Expo Router `Stack.Protected` by role; session and profile exposed together; splash held until first resolve | No flicker of the wrong role's screens | — |
+| 25 | 2026-10-15 | PostGIS installed in the `extensions` schema; columns typed `extensions.geography` | Supabase convention; works with `search_path = ''` functions | — |
+| 26 | 2026-10-15 | Explicit GRANTs per table/RPC (project does not auto-grant); RLS-only helpers live in schema `private` | Least privilege; keeps helpers out of the PostgREST API | — |

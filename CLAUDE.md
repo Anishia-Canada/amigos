@@ -62,7 +62,8 @@ supabase/migrations/         # all schema changes; see Workflow
 ## Workflow
 - One slice at a time. After each slice: explain how to test it in Expo Go (including with two test accounts: one homeowner, one Amigo), wait for confirmation, then suggest a git commit message.
 - All schema changes go in new migration files under `supabase/migrations/`; never edit an already-pushed migration; never run `npx supabase db push` without asking me.
-- Run `npx tsc --noEmit` before calling a slice done.
+- This project does not auto-grant privileges. Every new table needs explicit GRANTs matching its RLS policies, and every new RPC needs explicit GRANT EXECUTE to authenticated (revoke from public, anon). Helper functions used only inside policies go in schema private.
+- Run `npx tsc --noEmit` and `npx expo lint` before calling a slice done.
 
 ## Commands
 - Dev server: `npx expo start` (`--tunnel` if the phone can't connect)
